@@ -1,7 +1,9 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { marked } from 'marked';
+
 	export let chatHistory: { text?: string; role: 'user' | 'agent' }[];
+	console.log(chatHistory);
 </script>
 
 {#if chatHistory.length === 0}
@@ -23,7 +25,7 @@
 		{#if chat.role === 'agent'}
 			<div class="flex flex-col gap-2 py-4 pr-2 md:flex-row">
 				<Icon icon="mingcute:ai-fill" class="h-6 w-6" />
-				<div class="prose w-full flex-1">
+				<div class="prose-lg w-full flex-1">
 					{@html marked(chat.text!)}
 				</div>
 			</div>

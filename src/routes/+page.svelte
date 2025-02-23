@@ -18,7 +18,6 @@
 
 		console.log('Setting up EventSource...');
 		const eventSource = new EventSource('http://localhost:3030/v1/chat/events');
-		console.log(eventSource);
 
 		eventSource.onopen = () => {
 			console.log('EventSource connection opened.');
@@ -26,7 +25,6 @@
 
 		eventSource.onmessage = (event) => {
 			const message = JSON.parse(event.data);
-			console.log('Received message:', message);
 
 			if (message.type === 'end') {
 				isStreaming = false;
@@ -36,10 +34,8 @@
 			if (message.type === 'chat') {
 				if (isStreaming) {
 					const lastMessage = chatHistory[chatHistory.length - 1];
-					chatHistory = [
-						...chatHistory.slice(0, chatHistory.length - 1),
-						{ text: `${lastMessage.text}${message.text}`, role: 'agent' }
-					];
+					lastMessage.text += message.text;
+					chatHistory = [...chatHistory];
 				} else {
 					chatHistory = [...chatHistory, { text: message.text, role: 'agent' }];
 					isStreaming = true;

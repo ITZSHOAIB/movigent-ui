@@ -5,7 +5,7 @@
 
 <div class="navbar bg-base-200 fixed top-0 shadow-sm">
 	<div class="flex-1">
-		<a class="btn btn-ghost text-xl" href="/">Movie Buddy</a>
+		<a class="btn btn-ghost text-xl" href="/">MoviGent</a>
 	</div>
 	<div class="flex gap-3 px-2">
 		<ThemeController />
