@@ -17,7 +17,7 @@
 		if (!browser) return;
 
 		console.log('Setting up EventSource...');
-		const eventSource = new EventSource('http://localhost:3030/v1/chat/events');
+		const eventSource = new EventSource('/api/v1/chat/events');
 
 		eventSource.onopen = () => {
 			console.log('EventSource connection opened.');
@@ -57,7 +57,7 @@
 		if (input.trim() === '') return;
 
 		chatHistory = [...chatHistory, { text: input, role: 'user' }];
-		const response = await fetch('http://localhost:3030/v1/chat/message', {
+		const response = await fetch('/api/v1/chat/message', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -73,7 +73,7 @@
 	};
 </script>
 
-<div class="flex h-full w-full flex-col items-center">
+<div class="flex h-full w-full flex-col items-center overflow-y-hidden">
 	<ChatHistory {chatHistory} {isStreaming} />
 	<ChatInput bind:input {sendMessage} {isStreaming} />
 </div>

@@ -5,7 +5,17 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit(), tailwindcss()],
-
+	server: {
+		allowedHosts: ['bd5e-103-220-210-198.ngrok-free.app'],
+		proxy: {
+			'/api/v1': {
+				// Proxy requests starting with /v1
+				target: 'http://localhost:3030', // Your backend URL
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api/, '')
+			}
+		}
+	},
 	test: {
 		workspace: [
 			{
