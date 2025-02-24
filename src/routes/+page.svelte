@@ -74,6 +74,6 @@
 </script>
 
 <div class="flex h-full w-full flex-col items-center">
-	<ChatHistory {chatHistory} />
-	<ChatInput bind:input {sendMessage} />
+	<ChatHistory {chatHistory} {isStreaming} />
+	<ChatInput bind:input {sendMessage} {isStreaming} />
 </div>

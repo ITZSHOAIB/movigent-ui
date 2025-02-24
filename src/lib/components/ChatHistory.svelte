@@ -3,7 +3,7 @@
 	import { marked } from 'marked';
 
 	export let chatHistory: { text?: string; role: 'user' | 'agent' }[];
-	console.log(chatHistory);
+	export let isStreaming: boolean;
 </script>
 
 {#if chatHistory.length === 0}
@@ -16,7 +16,7 @@
 {/if}
 
 <div class="flex w-full max-w-4xl flex-1 flex-col gap-4 p-4 text-lg">
-	{#each chatHistory as chat}
+	{#each chatHistory as chat, index}
 		{#if chat.role === 'user'}
 			<div class="bg-base-300 self-end rounded-2xl rounded-tr-none p-3 px-4 text-right">
 				{chat.text}
@@ -24,7 +24,11 @@
 		{/if}
 		{#if chat.role === 'agent'}
 			<div class="flex flex-col gap-2 py-4 pr-2 md:flex-row">
-				<Icon icon="mingcute:ai-fill" class="h-6 w-6" />
+				{#if isStreaming && index === chatHistory.length - 1}
+					<span class="loading loading-ring loading-lg"></span>
+				{:else}
+					<Icon icon="mingcute:ai-fill" class="h-6 w-6" />
+				{/if}
 				<div class="prose-lg w-full flex-1">
 					{@html marked(chat.text!)}
 				</div>

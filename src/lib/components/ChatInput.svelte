@@ -2,6 +2,7 @@
 	import Icon from '@iconify/svelte';
 	export let input: string;
 	export let sendMessage: (event: Event) => void;
+	export let isStreaming: boolean;
 </script>
 
 <form on:submit={sendMessage} class="sticky bottom-0 w-full">
@@ -16,10 +17,15 @@
 				bind:value={input}
 			></textarea>
 			<button
+				disabled={isStreaming}
 				type="submit"
 				class="btn btn-primary inline-flex h-16 w-16 cursor-pointer justify-center p-2"
 			>
-				<Icon icon="ic:round-send" class="h-6 w-6" />
+				{#if isStreaming}
+					<span class="loading loading-infinity loading-lg"></span>
+				{:else}
+					<Icon icon="ic:round-send" class="h-6 w-6" />
+				{/if}
 			</button>
 		</div>
 	</div>
